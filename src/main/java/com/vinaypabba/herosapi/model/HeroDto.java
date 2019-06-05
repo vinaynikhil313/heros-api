@@ -1,5 +1,6 @@
 package com.vinaypabba.herosapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vinaypabba.herosapi.repo.entity.Ability;
 import com.vinaypabba.herosapi.repo.entity.Hero;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class HeroDto {
 
     private List<AbilityDto> abilities = null;
 
+    @JsonIgnore
     public Hero getHeroEntity() {
         Hero hero = new Hero();
         hero.setId(this.id);
@@ -36,7 +38,7 @@ public class HeroDto {
         hero.setRealName(this.realName);
         hero.setArmour(this.armour);
         hero.setHealth(this.health);
-        this.setShield(this.shield);
+        hero.setShield(this.shield);
         Set<Ability> abilitySet = new HashSet<>();
         abilities.forEach(ability -> abilitySet.add(ability.getAbilityEntity()));
         hero.setAbilities(abilitySet);

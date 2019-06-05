@@ -1,5 +1,7 @@
 package com.vinaypabba.herosapi.repo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.vinaypabba.herosapi.model.HeroDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,6 +42,19 @@ public class Hero {
     @JoinTable(name = "HERO_ABILITIES",
             joinColumns = { @JoinColumn(name = "HERO_ID") },
             inverseJoinColumns = { @JoinColumn(name = "ABILITY_ID") })
+    @JsonIgnore
     private Set<Ability> abilities = new HashSet<>();
+
+    @JsonIgnore
+    public HeroDto getHeroDto() {
+        HeroDto heroDto = new HeroDto();
+        heroDto.setId(this.id);
+        heroDto.setName(this.name);
+        heroDto.setRealName(this.realName);
+        heroDto.setArmour(this.armour);
+        heroDto.setHealth(this.health);
+        heroDto.setShield(this.shield);
+        return heroDto;
+    }
 
 }
